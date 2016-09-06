@@ -7,7 +7,9 @@ knows the pain of debugging. Often, when the script crashes, he needs to do:
 
 This script provides a periodically refreshed numbered list of processes filter
 by a specified filter string. The user can then simply enter the number in order
-to kill the corresponding process, making all the steps above obsolete.
+to kill the corresponding process, making all the steps above obsolete. The
+script is tested with OS X and Ubuntu 15.10, but should work on any Unix like
+system.
 
 # Installation
 This script needs no installation. However, a user might want to copy/link it to
