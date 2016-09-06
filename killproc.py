@@ -3,16 +3,24 @@
 import curses, curses.ascii
 import subprocess
 import time
-import sys
 
 filter_string = None
-process_name_start_index = 9 if sys.platform == 'darwin' else 4
+process_name_start_index = 4 # beginning with the 5th word the process name starts
 
 def get_processes(filter_str=None):
 	p = subprocess.Popen("ps ax".split(" "), stdout=subprocess.PIPE)
 	processes = []
 	for l in p.stdout:
 		processes.append(l.split(" "))
+
+	# get rid of the table head
+	processes = processes[1:]
+
+	# get rid of empty strings in each process array
+	_f = lambda x: x is not ''
+	processes = [filter(_f, p) for p in processes]
+
+	# make a tuple of process id and process name
 	processes = map(lambda x: (x[0], (" ".join(x[process_name_start_index:])).strip()), processes)
 	if filter_str:
 		processes = filter(lambda (_id, name): filter_str in name, processes)
@@ -20,7 +28,7 @@ def get_processes(filter_str=None):
 
 def init_scr():
 	scr = curses.initscr()
-	height, width = scr.getmaxyx()
+	height, width = scr.getmaxyx() # TODO: trim the process name nicely
 	curses.noecho()
 	curses.cbreak()
 	return scr
