@@ -1,9 +1,9 @@
 # killproc
 Every developer who just wants to write a little script that uses multiple threads
 knows the pain of debugging. Often, when the script crashes, he needs to do:
-- ps ax | grep <process name>
+- ps ax | grep *process name*
 - copy the pid
-- kill <pid>
+- kill *pid*
 
 This script provides a periodically refreshed numbered list of processes filter
 by a specified filter string. The user can then simply enter the number in order
